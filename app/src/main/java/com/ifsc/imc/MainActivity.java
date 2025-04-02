@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         edAltura     = findViewById(R.id.edAltura);
         imgPrincipal = findViewById(R.id.imgGeral);
 
+        imgPrincipal.setImageResource(R.drawable.perfil);
+
         btCalcula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
