@@ -7,13 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.ifsc.imc.CustomButton
+    <com.ifsc.imc.SimplePaint
+        android:id="@+id/simplePaint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Arraste"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="109dp" />
+
+    <Button
+        android:id="@+id/btLimpa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Limpa"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btCor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <Button
+        android:id="@+id/btCor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cor"
+        app:layout_constraintBottom_toBottomOf="@+id/btLimpa"
+        app:layout_constraintEnd_toStartOf="@+id/btLimpa"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btLimpa"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
