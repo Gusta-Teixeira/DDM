@@ -12,18 +12,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IMC"
         tools:targetApi="31">
+
         <activity
-            android:name=".MsgActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".ActivityTelaProgramatica"
+            android:exported="true"
+            android:label="Tela programática">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ActivityLinearLayout"
+            android:exported="true"
+            android:label="Ex 3">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ActivityFormularioConstraint"
+            android:exported="true"
+            android:label="Ex 4">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
