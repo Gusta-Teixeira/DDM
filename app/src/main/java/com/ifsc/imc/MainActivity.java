@@ -27,17 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         lvLista = findViewById(R.id.lvLista);
 
-        lvLista.setAdapter(adapter);
+        PlanetaAdapter planetaAdapter = new PlanetaAdapter(this, R.layout.item_lista, (new PlanetaDAO().Listplanetas));
 
-        lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), segunda_tela.class);
-
-                i.putExtra("Fruta", Nomes[position]);
-                startActivity(i);
-            }
-        });
-
+        lvLista.setAdapter(planetaAdapter);
     }
 }
