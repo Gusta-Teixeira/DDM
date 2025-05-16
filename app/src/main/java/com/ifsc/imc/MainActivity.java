@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,35 +19,25 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    Button btCalcula;
-    EditText edPeso, edAltura;
-    String wTexto;
-    float wIMC=0, wAltura=0;
-    ImageView imgPrincipal;
+    ListView lvLista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        btCalcula    = findViewById(R.id.button);
-        edPeso       = findViewById(R.id.edPeso);
-        edAltura     = findViewById(R.id.edAltura);
-        imgPrincipal = findViewById(R.id.imgGeral);
+        lvLista = findViewById(R.id.lvLista);
 
-        imgPrincipal.setImageResource(R.drawable.perfil);
+        lvLista.setAdapter(adapter);
 
-        btCalcula.setOnClickListener(new View.OnClickListener() {
+        lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                wAltura = (Float.valueOf(edAltura.getText().toString())) / 100;
-                wIMC = Float.valueOf(edPeso.getText().toString()) / (wAltura * wAltura);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(), segunda_tela.class);
 
-                Intent i = new Intent(getApplicationContext(), MsgActivity.class);
-                i.putExtra("IMC", Float.toString(wIMC));
-                i.putExtra("Peso", edPeso.getText().toString());
-                i.putExtra("Altura", Float.toString(wAltura));
+                i.putExtra("Fruta", Nomes[position]);
                 startActivity(i);
             }
         });
+
     }
 }
