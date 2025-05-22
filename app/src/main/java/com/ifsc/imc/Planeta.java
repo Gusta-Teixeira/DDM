@@ -1,6 +1,8 @@
 package com.ifsc.imc;
 
-public class Planeta {
+import java.io.Serializable;
+
+public class Planeta implements Serializable {
     String nome;
     Integer foto;
 

@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     ListView lvLista;
+    PlanetaDAO daoPlaneta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +28,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         lvLista = findViewById(R.id.lvLista);
 
+        daoPlaneta = new PlanetaDAO();
         PlanetaAdapter planetaAdapter = new PlanetaAdapter(this, R.layout.item_lista, (new PlanetaDAO().Listplanetas));
 
         lvLista.setAdapter(planetaAdapter);
+
+        lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ActivityB.class);
+
+                intent.putExtra("planeta", daoPlaneta.Listplanetas.get(position));
+                startActivity(intent);
+
+            }
+        });
     }
 }
