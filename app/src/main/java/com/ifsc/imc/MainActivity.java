@@ -1,6 +1,10 @@
 package com.ifsc.imc;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,30 +22,32 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
-    ListView lvLista;
-    PlanetaDAO daoPlaneta;
+    PackageManager pm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        lvLista = findViewById(R.id.lvLista);
+        pm = getPackageManager();
 
-        daoPlaneta = new PlanetaDAO();
-        PlanetaAdapter planetaAdapter = new PlanetaAdapter(this, R.layout.item_lista, (new PlanetaDAO().Listplanetas));
+        List<ApplicationInfo> appInfos = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
-        lvLista.setAdapter(planetaAdapter);
+        for (ApplicationInfo appInfo: appInfos) {
+            Log.d("app", appInfo.packageName);
 
-        lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ActivityB.class);
+        }
 
-                intent.putExtra("planeta", daoPlaneta.Listplanetas.get(position));
-                startActivity(intent);
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> appList = pm.queryIntentActivities(mainIntent, 0);
 
-            }
-        });
+        for (ResolveInfo resolveInfo: appList){
+            resolveInfo.loadLabel(pm).toString();
+        }
+
     }
 }
