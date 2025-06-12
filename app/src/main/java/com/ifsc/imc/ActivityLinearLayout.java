@@ -45,9 +45,9 @@ public class ActivityLinearLayout extends AppCompatActivity {
                     formacao = "Pós-Graduação";
                 }
 
-                String mensagem = "Dados enviados:\n" +
-                        "Nome: " + nome + "\n" +
-                        "E-mail: " + email + "\n" +
+                String mensagem = "Dados enviados: " +
+                        "Nome: " + nome + " " +
+                        "E-mail: " + email + " " +
                         "Formação: " + formacao;
 
                 Toast.makeText(ActivityLinearLayout.this,
