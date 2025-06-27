@@ -1,5 +1,6 @@
 package com.ifsc.imc;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,48 +30,49 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
-    TextView tvResult, tvAcele, tvGiros;
-    SensorManager sensorManager;
+public class MainActivity extends AppCompatActivity {
+    TextView tvLongitude, tvLatitude;
+    Button btGerar;
+    LocationManager lm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        tvResult = findViewById(R.id.tvResultado);
-        tvAcele = findViewById(R.id.tvAcele);
-        tvGiros = findViewById(R.id.tvGiros);
-        sensorManager=(SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensorLuz = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        Sensor sensorAcelerometro = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        Sensor sensorGiroscopio = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        tvLongitude = findViewById(R.id.tvLongitude);
+        tvLatitude = findViewById(R.id.tvLatitude);
+        btGerar = findViewById(R.id.button);
 
-        sensorManager.registerListener(this, sensorLuz, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, sensorAcelerometro, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, sensorGiroscopio, SensorManager.SENSOR_DELAY_NORMAL);
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        btGerar.setOnClickListener(view -> getlocalizacao());
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
-            tvResult.setText("Luminosidade: " + Float.toString(sensorEvent.values[0]));
-        } else if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            tvAcele.setText("Aceleromêtro: " + Float.toString(sensorEvent.values[0]));
-        }else if (sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE){
-            tvGiros.setText("Giroscópio: " + Float.toString(sensorEvent.values[0]));
+    public void getlocalizacao(){
+        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+           (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if (location != null){
+                tvLongitude.setText("Longitude: " + Double.toString(location.getLongitude()));
+                tvLatitude.setText("Latitude: " +Double.toString(location.getLatitude()));
+            }else {
+                tvLatitude.setText("Não foi possível encontrar a localização");
+            }
+
+        }else {
+            ActivityCompat.requestPermissions(this,  new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
-
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
 }
