@@ -15,6 +15,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
@@ -61,19 +63,27 @@ public class MainActivity extends AppCompatActivity {
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) ||
            (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
 
-            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location location;
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
-            if (location != null){
-                tvLongitude.setText("Longitude: " + Double.toString(location.getLongitude()));
-                tvLatitude.setText("Latitude: " +Double.toString(location.getLatitude()));
-            }else {
-                tvLatitude.setText("Não foi possível encontrar a localização");
-            }
+//            if (location != null){
+//                tvLongitude.setText("Longitude: " + Double.toString(location.getLongitude()));
+//                tvLatitude.setText("Latitude: " +Double.toString(location.getLatitude()));
+//            }else {
+//                tvLatitude.setText("Não foi possível encontrar a localização");
+//            }
 
         }else {
             ActivityCompat.requestPermissions(this,  new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             return;
         }
-
     }
+
+    public final LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(@NonNull Location location) {
+            tvLongitude.setText("Longitude: " + Double.toString(location.getLongitude()));
+            tvLatitude.setText("Latitude: " +Double.toString(location.getLatitude()));
+        }
+    };
 }
