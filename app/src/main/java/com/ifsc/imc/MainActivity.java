@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getlocalizacao(){
-        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) ||
            (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
 
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else {
             ActivityCompat.requestPermissions(this,  new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            return;
         }
 
     }
