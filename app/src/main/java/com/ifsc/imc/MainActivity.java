@@ -23,6 +23,7 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 public class MainActivity extends AppCompatActivity {
     Button btLimpa, btCor;
+    Button btQuadrado, btCirculo, btLinha;
     SimplePaint simplePaint;
     ColorPickerView cpCor;
     @Override
@@ -63,5 +64,21 @@ public class MainActivity extends AppCompatActivity {
             simplePaint.limpa();
         });
 
+
+        btLinha = findViewById(R.id.btTraco);
+        btCirculo = findViewById(R.id.btCirculo);
+        btQuadrado = findViewById(R.id.btQuadrado);
+
+        btLinha.setOnClickListener(view -> {
+           simplePaint.setModo("linha");
+        });
+
+        btCirculo.setOnClickListener(view -> {
+            simplePaint.setModo("circulo");
+        });
+
+        btQuadrado.setOnClickListener(view -> {
+            simplePaint.setModo("quadrado");
+        });
     }
 }

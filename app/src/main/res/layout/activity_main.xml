@@ -23,19 +23,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="109dp" />
+        app:layout_constraintGuide_begin="159dp" />
 
     <Button
         android:id="@+id/btLimpa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Limpa"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/btCirculo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btCor"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btCor"
@@ -48,5 +47,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btLimpa"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btTraco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Traço"
+        app:layout_constraintBottom_toBottomOf="@+id/btQuadrado"
+        app:layout_constraintEnd_toStartOf="@+id/btQuadrado"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btQuadrado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quadrado"
+        app:layout_constraintEnd_toStartOf="@+id/btCirculo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btTraco"
+        app:layout_constraintTop_toTopOf="@+id/btCirculo" />
+
+    <Button
+        android:id="@+id/btCirculo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Círculo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btQuadrado" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
