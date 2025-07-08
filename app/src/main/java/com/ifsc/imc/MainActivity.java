@@ -34,7 +34,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     Button buttonFa, buttonFb;
     FrameLayout frameLayout;
     TabLayout tabLayout;
@@ -44,23 +44,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        buttonFa = findViewById(R.id.btFragmentA);
-        buttonFa.setOnClickListener(this);
-    }
 
-    @Override
-    public void onClick(View v) {
-        Fragment fragment;
-        switch (v.getId()) {
-            case (R.id.btFragmentA):
-                fragment = new FragmentoA();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + v.getId());
-        }
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
     }
 }

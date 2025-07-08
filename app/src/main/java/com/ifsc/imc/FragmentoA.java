@@ -19,7 +19,7 @@ import android.widget.EditText;
 public class FragmentoA extends Fragment {
 
     EditText mEdexto;
-    FragmentoB fragmentB;
+    Button btEnvia;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,21 +65,21 @@ public class FragmentoA extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View  view =  inflater.inflate(R.layout.fragment_fragmento_a,container, false);
-        mEdexto= view.findViewById(R.id.edFragA);
-        Button b= view.findViewById(R.id.btFragmentA);
+        mEdexto = view.findViewById(R.id.edFragA);
+        btEnvia = view.findViewById(R.id.btFragmentA);
 
-        b.setOnClickListener(new View.OnClickListener() {
+        btEnvia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String msg = mEdexto.getText().toString();
-                fragmentB = new FragmentoB();
-                Bundle bundle = new Bundle();
-                bundle.putString("msg", mEdexto.getText().toString());
-                fragmentB.setArguments(bundle);
 
-                //inicializando Fragmento B
+                FragmentoB fragB = new FragmentoB();
+                Bundle bundle = new Bundle();
+                bundle.putString("msg", msg);
+                fragB.setArguments(bundle);
+
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frameLayout, fragmentB);
+                fragmentTransaction.replace(R.id.frameLayout, fragB);
                 fragmentTransaction.commit();
             }
         });

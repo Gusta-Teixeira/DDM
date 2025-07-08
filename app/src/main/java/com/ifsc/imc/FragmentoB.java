@@ -18,7 +18,7 @@ import android.widget.TextView;
  */
 public class FragmentoB extends Fragment {
     TextView mTextViewMsg;
-    Button buttonReturnFragmentA;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,12 +62,15 @@ public class FragmentoB extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view= inflater.inflate(R.layout.fragment_fragmento_b,container,false);
+
         mTextViewMsg=view.findViewById(R.id.edFragB);
-        if ( getArguments()!=null  && getArguments().containsKey("msg")) {
-            String msg = getArguments().getString("msg");
-            mTextViewMsg.setText(msg);
-        }
+
+        Bundle msgFrag = getArguments();
+
+        mTextViewMsg.setText(msgFrag.getString("msg"));
+
         return  view;
     }
 }
