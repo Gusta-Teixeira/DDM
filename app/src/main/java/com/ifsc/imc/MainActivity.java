@@ -2,52 +2,55 @@ package com.ifsc.imc;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    PackageManager pm;
+
+    ListView listView;
+    PackageManager packageManager;
+    List<ApplicationInfo> packageInfoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        pm = getPackageManager();
 
-        List<ApplicationInfo> appInfos = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-
-        for (ApplicationInfo appInfo: appInfos) {
-            Log.d("app", appInfo.packageName);
-
-        }
+        listView = findViewById(R.id.listview_apps);
+        packageManager = getPackageManager();
+        packageInfoList = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        List<ResolveInfo> appList = pm.queryIntentActivities(mainIntent, 0);
+        List<ResolveInfo> appList = packageManager.queryIntentActivities(mainIntent, 0);
 
-        for (ResolveInfo resolveInfo: appList){
-            resolveInfo.loadLabel(pm).toString();
-        }
+        AppAdapter appAdapter = new AppAdapter(this, R.layout.item_lista, packageInfoList);
+        listView.setAdapter(appAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ApplicationInfo applicationInfo = (ApplicationInfo) parent.getItemAtPosition(position);
+                String packageName = applicationInfo.packageName;
+
+                Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+                if (intent != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "Não foi possível abrir o aplicativo", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
