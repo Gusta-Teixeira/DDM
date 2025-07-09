@@ -29,15 +29,16 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonFa, buttonFb;
-    FrameLayout frameLayout;
-    TabLayout tabLayout;
+
+    Fragment fragment;
+    TabLayout tab;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +46,28 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        fragment = new FragmentoA();
+        abreFragmentoA();
+
     }
+
+    public void abreFragmentoA(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout, fragment);
+        transaction.commit();
+        
+    }
+
+    public void abreFragmentoB(Bundle b){
+        tab = findViewById(R.id.tabLayout);
+        FragmentoB fragB = new FragmentoB();
+        fragB.setArguments(b);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragB);
+        fragmentTransaction.commit();
+        
+        tab.getTabAt(1).select();
+    }
+
 }

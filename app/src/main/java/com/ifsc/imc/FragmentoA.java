@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.tabs.TabLayout;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentoA#newInstance} factory method to
@@ -20,6 +22,7 @@ public class FragmentoA extends Fragment {
 
     EditText mEdexto;
     Button btEnvia;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,14 +76,11 @@ public class FragmentoA extends Fragment {
             public void onClick(View v) {
                 String msg = mEdexto.getText().toString();
 
-                FragmentoB fragB = new FragmentoB();
+
                 Bundle bundle = new Bundle();
                 bundle.putString("msg", msg);
-                fragB.setArguments(bundle);
 
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frameLayout, fragB);
-                fragmentTransaction.commit();
+                ((MainActivity) getActivity()).abreFragmentoB(bundle);
             }
         });
         return view;
